@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meet Me - Dating Profile</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #FF6B35;
+            --secondary: #004E89;
+            --accent: #F7B32B;
+            --dark: #1A1A2E;
+            --light: #F8F9FA;
+            --cream: #FFF8F0;
+        }
+
+        body {
+            font-family: 'Manrope', sans-serif;
+            background: linear-gradient(135deg, #FFF8F0 0%, #FFE8D6 100%);
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(255,107,53,0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            top: -100px;
+            right: -100px;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(0,78,137,0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            bottom: -50px;
+            left: -50px;
+            animation: float 15s ease-in-out infinite reverse;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(30px, -30px) rotate(120deg); }
+            66% { transform: translate(-20px, 20px) rotate(240deg); }
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+            animation: fadeIn 1s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero-text h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4.5rem;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            color: var(--secondary);
+            animation: slideInLeft 1s ease-out 0.2s both;
+        }
+
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .hero-text .tagline {
+            font-size: 1.4rem;
+            color: var(--primary);
+            margin-bottom: 30px;
+            font-weight: 500;
+            animation: slideInLeft 1s ease-out 0.4s both;
+        }
+
+        .hero-text p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 40px;
+            color: #555;
+            animation: slideInLeft 1s ease-out 0.6s both;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary) 0%, #FF8C5A 100%);
+            color: white;
+            padding: 18px 45px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(255,107,53,0.3);
+            animation: slideInLeft 1s ease-out 0.8s both;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255,107,53,0.4);
+        }
+
+        .hero-images {
+            position: relative;
+            height: 600px;
+            animation: slideInRight 1s ease-out 0.4s both;
+        }
+
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .image-card {
+            position: absolute;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+            transition: all 0.5s ease;
+        }
+
+        .image-card:hover {
+            transform: scale(1.05) rotate(2deg);
+            box-shadow: 0 30px 80px rgba(0,0,0,0.25);
+        }
+
+        .image-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .image-card-1 {
+            width: 350px;
+            height: 450px;
+            top: 0;
+            left: 0;
+            z-index: 2;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .image-card-2 {
+            width: 300px;
+            height: 400px;
+            bottom: 0;
+            right: 0;
+            animation: float 8s ease-in-out infinite 1s;
+        }
+
+        /* About Section */
+        .about {
+            padding: 120px 0;
+            background: white;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .section-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            color: var(--secondary);
+            margin-bottom: 15px;
+        }
+
+        .section-header .underline {
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            margin: 0 auto;
+            border-radius: 2px;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .about-card {
+            background: linear-gradient(135deg, var(--cream) 0%, white 100%);
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .about-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+            box-shadow: 0 20px 40px rgba(255,107,53,0.15);
+        }
+
+        .about-card .icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .about-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--secondary);
+            margin-bottom: 15px;
+        }
+
+        .about-card p {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            color: #666;
+        }
+
+        /* Interests Section */
+        .interests {
+            padding: 120px 0;
+            background: linear-gradient(135deg, var(--secondary) 0%, #003366 100%);
+            color: white;
+        }
+
+        .interests .section-header h2 {
+            color: white;
+        }
+
+        .interests .underline {
+            background: linear-gradient(90deg, var(--accent), var(--primary));
+        }
+
+        .interests-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            margin-top: 60px;
+        }
+
+        .interest-item {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .interest-item:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-5px);
+        }
+
+        .interest-item .emoji {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .interest-item h4 {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        /* Looking For Section */
+        .looking-for {
+            padding: 120px 0;
+            background: white;
+        }
+
+        .looking-for .section-header h2 {
+            color: var(--secondary);
+        }
+
+        .looking-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .looking-content p {
+            font-size: 1.3rem;
+            line-height: 2;
+            color: #555;
+            margin-bottom: 30px;
+        }
+
+        .qualities {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 40px;
+        }
+
+        .quality-tag {
+            background: linear-gradient(135deg, var(--primary), #FF8C5A);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 500;
+            font-size: 1.05rem;
+            transition: all 0.3s ease;
+        }
+
+        .quality-tag:hover {
+            transform: scale(1.1);
+            box-shadow: 0 5px 20px rgba(255,107,53,0.3);
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 120px 0;
+            background: linear-gradient(135deg, var(--cream) 0%, #FFE8D6 100%);
+            text-align: center;
+        }
+
+        .contact h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            color: var(--secondary);
+            margin-bottom: 30px;
+        }
+
+        .contact p {
+            font-size: 1.3rem;
+            color: #555;
+            margin-bottom: 40px;
+        }
+
+        .contact .cta-button {
+            font-size: 1.2rem;
+            padding: 20px 50px;
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .hero-text h1 {
+                font-size: 3rem;
+            }
+
+            .hero-images {
+                height: 400px;
+                margin: 0 auto;
+            }
+
+            .image-card-1 {
+                width: 280px;
+                height: 360px;
+            }
+
+            .image-card-2 {
+                width: 240px;
+                height: 320px;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .interests-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .section-header h2 {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-text .tagline {
+                font-size: 1.1rem;
+            }
+
+            .interests-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .qualities {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>Looking for Something Real</h1>
+                    <p class="tagline">Authentic. Ambitious. Adventure-Ready.</p>
+                    <p>Hey there! I'm someone who believes in living life with purpose and passion. Whether I'm exploring new places, diving into meaningful conversations, or simply enjoying good food with great company, I bring positive energy to everything I do.</p>
+                    <a href="#contact" class="cta-button">Let's Connect</a>
+                </div>
+                <div class="hero-images">
+                    <div class="image-card image-card-1">
+                        <img src="photo1.png" alt="Profile photo 1">
+                    </div>
+                    <div class="image-card image-card-2">
+                        <img src="photo2.png" alt="Profile photo 2">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about">
+        <div class="container">
+            <div class="section-header">
+                <h2>About Me</h2>
+                <div class="underline"></div>
+            </div>
+            <div class="about-grid">
+                <div class="about-card">
+                    <div class="icon">🎯</div>
+                    <h3>Driven</h3>
+                    <p>I set goals and chase them with determination. Success comes from hard work and never giving up on what matters.</p>
+                </div>
+                <div class="about-card">
+                    <div class="icon">❤️</div>
+                    <h3>Genuine</h3>
+                    <p>What you see is what you get. I value honesty, authenticity, and keeping it real in all my relationships.</p>
+                </div>
+                <div class="about-card">
+                    <div class="icon">🌟</div>
+                    <h3>Optimistic</h3>
+                    <p>Life's too short for negativity. I bring good vibes and believe every challenge is an opportunity to grow.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interests Section -->
+    <section class="interests">
+        <div class="container">
+            <div class="section-header">
+                <h2>What I Love</h2>
+                <div class="underline"></div>
+            </div>
+            <div class="interests-grid">
+                <div class="interest-item">
+                    <span class="emoji">✈️</span>
+                    <h4>Travel</h4>
+                </div>
+                <div class="interest-item">
+                    <span class="emoji">🍜</span>
+                    <h4>Food Adventures</h4>
+                </div>
+                <div class="interest-item">
+                    <span class="emoji">💪</span>
+                    <h4>Fitness</h4>
+                </div>
+                <div class="interest-item">
+                    <span class="emoji">📚</span>
+                    <h4>Learning</h4>
+                </div>
+                <div class="interest-item">
+                    <span class="emoji">🎵</span>
+                    <h4>Music</h4>
+                </div>
+                <div class="interest-item">
+                    <span class="emoji">☕</span>
+                    <h4>Coffee Dates</h4>
+                </div>
+                <div class="interest-item">
+                    <span class="emoji">🌅</span>
+                    <h4>Sunsets</h4>
+                </div>
+                <div class="interest-item">
+                    <span class="emoji">🎬</span>
+                    <h4>Movies</h4>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Looking For Section -->
+    <section class="looking-for">
+        <div class="container">
+            <div class="section-header">
+                <h2>What I'm Looking For</h2>
+                <div class="underline"></div>
+            </div>
+            <div class="looking-content">
+                <p>I'm hoping to meet someone who's equally passionate about life, knows what they want, and isn't afraid to go after it. Someone who can match my energy, challenge me intellectually, and share in both adventures and quiet moments.</p>
+                <div class="qualities">
+                    <span class="quality-tag">Ambitious</span>
+                    <span class="quality-tag">Kind-Hearted</span>
+                    <span class="quality-tag">Good Sense of Humor</span>
+                    <span class="quality-tag">Adventurous</span>
+                    <span class="quality-tag">Authentic</span>
+                    <span class="quality-tag">Supportive</span>
+                    <span class="quality-tag">Family-Oriented</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2>Ready to Start Our Story?</h2>
+            <p>Life's better when shared with the right person. Let's see if we connect!</p>
+            <a href="#" class="cta-button">Send Me a Message</a>
+        </div>
+    </section>
+
+    <script>
+        // Smooth scroll for CTA button
+        document.querySelector('.cta-button').addEventListener('click', function(e) {
+            if (this.getAttribute('href').startsWith('#')) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }
+        });
+
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe cards and sections
+        document.querySelectorAll('.about-card, .interest-item').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
